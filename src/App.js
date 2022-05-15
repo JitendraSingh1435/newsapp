@@ -1,25 +1,47 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React, { Component } from 'react'
+import Navbar from './Components/Navbar';
+import News from './Components/News';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LoadingBar from 'react-top-loading-bar'
 
-export default App;
+export default class App extends Component {
+  pageSize = 20;
+
+  state = {
+    progress: 0
+  }
+
+  setProgress = ( progress) => {
+    this.setState({ progress: progress })
+  }
+
+
+  render() {
+
+    return (
+      <div>
+        <BrowserRouter>
+          <Navbar />
+
+          <LoadingBar
+            color='#f11946'
+            height={3}
+            progress={this.state.progress}
+          />
+
+          <Routes>
+            <Route path="/" element={<News setProgress = {this.setProgress} key="general" pageSize={this.pageSize} country='in' category="general" />} />
+            <Route path="/entertainment" element={<News setProgress = {this.setProgress} key="entertainment" pageSize={this.pageSize} country='in' category="entertainment" />} />
+            <Route path="/health" element={<News setProgress = {this.setProgress} key="health" pageSize={this.pageSize} country='in' category="health" />} />
+            <Route path="/science" element={<News setProgress = {this.setProgress} key="science" pageSize={this.pageSize} country='in' category="science" />} />
+            <Route path="/sports" element={<News setProgress = {this.setProgress} key="sports" pageSize={this.pageSize} country='in' category="sports" />} />
+            <Route path="/technology" element={<News setProgress = {this.setProgress} key="technology" pageSize={this.pageSize} country='in' category="technology" />} />
+
+          </Routes>
+        </BrowserRouter>
+      </div>
+    )
+  }
+}
