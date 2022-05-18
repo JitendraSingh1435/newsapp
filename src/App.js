@@ -1,47 +1,40 @@
 import './App.css';
-
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Navbar from './Components/Navbar';
 import News from './Components/News';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar'
 
-export default class App extends Component {
-  pageSize = 20;
+const App = () => {
+  const pageSize = 20;
 
-  state = {
-    progress: 0
-  }
-
-  setProgress = ( progress) => {
-    this.setState({ progress: progress })
-  }
-
-
-  render() {
+ const [progress, setProgress] = useState(0);
 
     return (
+
       <div>
         <BrowserRouter>
-          <Navbar />
+          <Navbar/>
 
           <LoadingBar
             color='#f11946'
             height={3}
-            progress={this.state.progress}
+            progress={progress}
           />
 
           <Routes>
-            <Route path="/" element={<News setProgress = {this.setProgress} key="general" pageSize={this.pageSize} country='in' category="general" />} />
-            <Route path="/entertainment" element={<News setProgress = {this.setProgress} key="entertainment" pageSize={this.pageSize} country='in' category="entertainment" />} />
-            <Route path="/health" element={<News setProgress = {this.setProgress} key="health" pageSize={this.pageSize} country='in' category="health" />} />
-            <Route path="/science" element={<News setProgress = {this.setProgress} key="science" pageSize={this.pageSize} country='in' category="science" />} />
-            <Route path="/sports" element={<News setProgress = {this.setProgress} key="sports" pageSize={this.pageSize} country='in' category="sports" />} />
-            <Route path="/technology" element={<News setProgress = {this.setProgress} key="technology" pageSize={this.pageSize} country='in' category="technology" />} />
+            <Route path="/" element={<News setProgress = {setProgress} key="general" pageSize={pageSize} country='in' category="general" />} />
+            <Route path="/entertainment" element={<News setProgress = {setProgress} key="entertainment" pageSize={pageSize} country='in' category="entertainment" />} />
+            <Route path="/health" element={<News setProgress = {setProgress} key="health" pageSize={pageSize} country='in' category="health" />} />
+            <Route path="/science" element={<News setProgress = {setProgress} key="science" pageSize={pageSize} country='in' category="science" />} />
+            <Route path="/sports" element={<News setProgress = {setProgress} key="sports" pageSize={pageSize} country='in' category="sports" />} />
+            <Route path="/technology" element={<News setProgress = {setProgress} key="technology" pageSize={pageSize} country='in' category="technology" />} />
 
           </Routes>
         </BrowserRouter>
-      </div>
+      </div >
     )
-  }
 }
+
+
+export default App;
